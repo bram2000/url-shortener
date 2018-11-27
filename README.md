@@ -46,4 +46,15 @@ The response should be a 301 redirect, with the `Location` header pointing at th
 ```
 
 # Performance
-I have done a very crude benchmark of the system running locally on my laptop, and seen a url creation (e.g. POST) throughput of just over 100 posts/second.
+I have done a very crude benchmark of the system running locally on my laptop, and seen a throughput of around 100 posts/second for both the GET and POST requests.
+
+## App tier
+
+The implementation allows for horizontal scaling of the application tier, that is, we could run many python flask 'app' nodes behind a load-balancer, and trivially deal with many requests in parallel. At this point, the bottleneck becomes the database.
+
+## DB tier
+
+Read-only replicas of the database can be used to scale the read side of the application, at the expense of write-latency (e.g. a shortened url will not be immediately available on all nodes) however this can be tuned to a low, and probably negligable value (e.g. < 1 second).
+
+Finally the write side of the database, which is the hardest to scale in this case. I would like to test the performance of the system running on production infrastructure, including the tweaks detailed above. I believe simply throwing some hardware at this would achieve a reasonable level of performance.
+If more throughout is required at this point then we could start to look at vertically sharding the DB, where we use some criteria to break the datappart. For example you might run 5 DB nodes and `modulo 5` the url database id to detemine which database it should be put into. Conversely during the read we decode the shortened url string into the db id and use this to determine where we look for the data.
