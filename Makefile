@@ -23,7 +23,7 @@ run-migrations:
 	alembic upgrade head
 
 start-app-local: up-db
-	FLASK_APP=shortener/app.py flask run
+	python3 -m shortener.bootstrap
 
 unit:
 	run-contexts -v tests/unit
