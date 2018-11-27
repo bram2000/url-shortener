@@ -18,7 +18,6 @@ class UrlShortener:
         self.flask_app.add_url_rule("/<key>", "lookup", self.lookup, methods=["GET"])
 
     def shorten(self):
-        logging.debug("----> shorten_url")
         if not request.json:
             return error_response("No json payload found")
 
@@ -35,7 +34,7 @@ class UrlShortener:
         key = self.codec.encode(row_id)
 
         shortened_url = url_for("lookup", _external=True, key=key)
-        logging.debug("shortened_url: %s", shortened_url)
+        logging.debug("Shortened url: %s", shortened_url)
 
         response = jsonify({"shortened_url": shortened_url})
         response.status_code = 201
@@ -44,17 +43,18 @@ class UrlShortener:
 
     def lookup(self, key):
         db_id = self.codec.decode(key)
-        url = self.url_repository.get(db_id)
-        if not url:
-            return error_response("no url found")
+        try:
+            url = self.url_repository.get(db_id)
+        except KeyError:
+            return error_response("url not found", 404)
 
-        logging.info("redirecting to %s", url)
+        logging.info("Redirecting to %s", url)
 
         return redirect(url, code=301)
 
 
-def error_response(message):
+def error_response(message, status_code=400):
     logging.warning("error: %s", message)
     response = jsonify({"error": message})
-    response.status_code = 400
+    response.status_code = status_code
     return response

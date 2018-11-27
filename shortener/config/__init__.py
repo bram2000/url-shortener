@@ -4,8 +4,8 @@ import dozen
 
 class AppConfig(dozen.Template):
     db_host: str = "localhost"
-    db_user: str = "shortener"
-    db_password: str = "shortener"
+    db_user: str = "postgres"
+    db_password: str = "postgres"
     db_name: str = "shortener"
 
     app_host: str = "0.0.0.0"

@@ -1,8 +1,18 @@
 up:
 	docker-compose up
 
-up-db: run-migrations
+acceptance: up wait-for-app
+	docker-compose exec app run-contexts ./tests/acceptance
+
+wait-for-app:
+	while ! nc -z localhost 5000; do echo "Waiting for app"; sleep 2; done; \
+	sleep 2; \
+
+
+start-db:
 	docker-compose up -d db
+
+up-db: start-db run-migrations
 
 run-migrations:
 	while ! nc -z localhost 5432; do echo "Waiting for DB"; sleep 2; done; \
@@ -17,9 +27,3 @@ unit:
 
 unit-watch:
 	ls **/*.py | entr run-contexts -v tests/unit
-
-acceptance:
-	run-contexts -vs tests/acceptance
-
-docker-acceptance: up-db
-	docker-compose run app run-contexts -v tests/acceptance

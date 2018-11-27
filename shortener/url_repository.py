@@ -30,4 +30,6 @@ class PostgresUrlRepository:
     def get(self, db_id):
         result = self.db.execute(self.stmts["get"], {"id_": db_id})
         row = result.fetchone()
+        if not row:
+            raise KeyError
         return row["url"]
