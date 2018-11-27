@@ -28,7 +28,7 @@ class WebService:
 
         try:
             key = url_shortener.url_to_key(url)
-        except Exception error:
+        except Exception as error:
             return self.error_response(error.message)
 
         shortened_url = url_for("lookup", _external=True, key=key)
@@ -38,10 +38,10 @@ class WebService:
         response.status_code = 201
         return response
 
-    def lookup(self, key)
+    def lookup(self, key):
         try:
             url = self.url_shortener.key_to_url(key)
-        except Exception error:
+        except Exception as error:
             return self.error_response(error.message, 404)
 
         logging.info("Redirecting to %s", url)
