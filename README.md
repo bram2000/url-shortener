@@ -6,7 +6,7 @@
  - docker
  - docker-compose
 
-To run the service simply execute `make up`. This should build two docker containers (database and app) and run them both. Once complete you should see some logs, and the service should be available at `http://localhost:5000`.
+To run the service simply execute `make up`. This will build two docker containers (database and app) and run them both. The containers will print some logging to stdout. The default service address `http://localhost:5000`.
 
 # Usage
 
@@ -24,7 +24,7 @@ curl -H "Content-Type: application/json" -X POST http://localhost:5000/shorten_u
 {"url": "http://google.com"}
 '
 ```
-The response should contain the shortened url in it's json payload, e.g.
+The response contains the shortened url in it's json payload, e.g.
 ```
 {"shortened_url":"http://localhost:5000/A0wJDGtT"}
 ```
@@ -35,7 +35,7 @@ To lookup a shortened url, simply make a GET request to the shortened__url. Exam
 ```
 curl "http://localhost:5000/CIkn8Fn6"
 ```
-The response should be a 301 redirect, with the `Location` header pointing at the target resource, e.g.
+The response is a standard 301 redirect, with the `Location` header pointing at the target resource, e.g.
 ```
 < HTTP/1.0 301 MOVED PERMANENTLY
 < Content-Type: text/html; charset=utf-8
