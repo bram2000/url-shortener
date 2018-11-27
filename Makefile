@@ -1,7 +1,7 @@
 up:
 	docker-compose up
 
-acceptance: up wait-for-app
+acceptance:
 	docker-compose exec app run-contexts ./tests/acceptance
 
 wait-for-app:

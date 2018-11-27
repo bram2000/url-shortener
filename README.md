@@ -45,6 +45,17 @@ The response is a standard 301 redirect, with the `Location` header pointing at 
 < Date: Tue, 27 Nov 2018 16:48:05 GMT
 ```
 
+# Testing
+
+## Acceptance
+To run acceptance tests, start the service as normal using `make up`, then trigger the tests from another terminal using `make acceptance`. The tests run inside the app container.
+
+## Unit
+To run the unit tests you need a python environment (virtual environment is recommended). Once you have a suitable python3 environment, install the application and it's dependencies with `pip3 install -e .`. `make unit` will then execute the unit tests.
+
+# Implementation notes
+In order to avoid using sequential ids (which would make it trivial for people to a) know how many urls we have shortened and b) scan them all) and for the sake of performance, we choose a random id to use for each entry in the url repository. If we collide with an existing row, we simply try again. This should work well until the service contains a large number of urls, at which point we could start clearing old entries (e.g. add a 'date_added' field and clean regularly) or just increase the address space (make slightly longer shortened urls).
+
 # Performance
 I have done a very crude benchmark of the system running locally on my laptop, and seen a throughput of around 100 posts/second for both the GET and POST requests.
 
