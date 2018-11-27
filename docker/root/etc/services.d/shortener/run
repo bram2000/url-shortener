@@ -1,0 +1,3 @@
+#!/usr/bin/execlineb
+/usr/bin/with-contenv
+url_shortener
