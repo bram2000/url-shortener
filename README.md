@@ -1,5 +1,11 @@
 ### Getting started
 
+# Requirements
+
+ - make
+ - docker
+ - docker-compose
+
 To run the service simply execute `make up`. This should build two docker containers (database and app) and run them both. Once complete you should see some logs, and the service should be available at `http://localhost:5000`.
 
 ### Usage
