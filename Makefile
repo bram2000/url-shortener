@@ -1,3 +1,6 @@
+clean:
+	docker-compose down
+
 up:
 	docker-compose up
 
