@@ -1,0 +1,26 @@
+version: '3'
+services:
+
+  db:
+    container_name: shortener_db
+    image: postgres:10.5-alpine
+    healthcheck:
+      test: "pg_isready -h localhost -t 60 -q -U postgres"
+      interval: 30s
+      timeout: 60s
+      retries: 3
+    env_file:
+      - docker.env
+    ports:
+      - "5432:5432"
+
+  app:
+    container_name: shortener_app
+    build:
+      context: .
+    depends_on:
+      - db
+    env_file:
+      - docker.env
+    ports:
+      - "5000:5000"
