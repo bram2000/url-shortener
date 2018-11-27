@@ -62,3 +62,19 @@ class WhenRequestingAShortenedUrl:
     def the_response_should_redirect_to_the_correct_url(self):
         redirected_url = self.response.headers['Location']
         expect(redirected_url).to(equal(self.url))
+
+
+class WhenRequestingANonExistentShortenedUrl:
+    def given_that_we_have_shortened_a_url(self):
+        self.shortened_url = "http://localhost:5000/blahblahblah"
+
+    def because_we_request_the_non_existent_shortened_url(self):
+        self.response = requests.get(self.shortened_url, allow_redirects=False)
+
+    def the_response_should_have_a_status_code_of_404(self):
+        status_code = self.response.status_code
+        expect(status_code).to(equal(404))
+
+    def the_response_should_contain_a_sensible_error(self):
+        body = self.response.json()
+        expect(body).to(equal({"error": "url not found"}))
