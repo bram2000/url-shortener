@@ -50,7 +50,8 @@ I have done a very crude benchmark of the system running locally on my laptop, a
 
 ## App tier
 
-The implementation allows for horizontal scaling of the application tier, that is, we could run many python flask 'app' nodes behind a load-balancer, and trivially deal with many requests in parallel. At this point, the bottleneck becomes the database.
+This app is built on top of the lightweight 'flask' framework, so the request handling is entirely synchronous. As such, the app would need to be horizontally scaled in order to achieve any significant level of performance. One way to do this would be to use gunicorn to marshall requests across a group of workers, another would be to use a load balancer (e.g. ElasticLoadBalancer on AWS) above a bunch of docker containers. Lots of ways to skin this cat!
+At the point where we have parallelised the request handling, the bottleneck would become the database....
 
 ## DB tier
 
