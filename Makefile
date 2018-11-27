@@ -1,5 +1,5 @@
 up:
-	docker-compose up -d
+	docker-compose up
 
 up-db: run-migrations
 	docker-compose up -d db
