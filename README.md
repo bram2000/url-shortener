@@ -1,6 +1,6 @@
-### Getting started
+# Getting started
 
-# Requirements
+## Requirements
 
  - make
  - docker
@@ -8,9 +8,9 @@
 
 To run the service simply execute `make up`. This should build two docker containers (database and app) and run them both. Once complete you should see some logs, and the service should be available at `http://localhost:5000`.
 
-### Usage
+# Usage
 
-# Shorten
+## Shorten
 
 To shorten a url using the service, post a request to `http://localhost:5000/shorten_url` with a json payload containing the url to shorten, e.g.
 ```
@@ -29,7 +29,7 @@ The response should contain the shortened url in it's json payload, e.g.
 {"shortened_url":"http://localhost:5000/A0wJDGtT"}
 ```
 
-# Lookup
+## Lookup
 
 To lookup a shortened url, simply make a GET request to the shortened__url. Example in curl;
 ```
