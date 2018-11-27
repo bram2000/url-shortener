@@ -6,7 +6,7 @@
  - docker
  - docker-compose
 
-To run the service simply execute `make up`. This will build two docker containers (database and app) and run them both. The containers will print some logging to stdout. The default service address `http://localhost:5000`.
+To run the service simply execute `make up`. This will build two docker containers (database and app) and run them both. The containers will print some logging to stdout. The default service address is `http://localhost:5000`.
 
 # Usage
 
