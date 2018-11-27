@@ -2,7 +2,7 @@ up:
 	docker-compose up
 
 acceptance:
-	docker-compose exec app run-contexts ./tests/acceptance
+	docker-compose exec app run-contexts -v ./tests/acceptance
 
 wait-for-app:
 	while ! nc -z localhost 5000; do echo "Waiting for app"; sleep 2; done; \
